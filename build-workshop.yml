@@ -97,6 +97,7 @@
       record: "{{workshop_name}}.{{workshop_dns_zone}}"
       type: CNAME
       value: "lightbulb-{{workshop_name}}.s3-website-us-east-1.amazonaws.com"
+      
   - name: PUT student webpage
     s3_sync:
       bucket: "{{workshop_name}}.{{workshop_dns_zone}}"
