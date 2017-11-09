@@ -16,7 +16,7 @@
       with_sequence: start="{{ student_count_start }}" end="{{ student_count_end }}"
       when: student_count_start is defined and student_count_end is defined
 
-    - include: build-student.yml
+    - include_tasks: build-student.yml
       with_sequence: start="{{ student_count_start }}" end="{{ student_count_end }}"
       loop_control:
         loop_var: student_number
