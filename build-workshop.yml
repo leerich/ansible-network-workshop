@@ -81,30 +81,30 @@
   gather_facts: no
 
   tasks:
-  - name: create s3 bucket
-    s3_bucket:
-      name: "{{workshop_name}}.{{workshop_dns_zone}}"
-  - name: enable web hosting
-    s3_website:
-     name: "{{workshop_name}}.{{workshop_dns_zone}}"
-     state: present
-     region: "{{workshop_region1}}"
-    register: s3_site
-  - name: DNS for student webpage
-    route53:
-      state: present
-      zone: "{{workshop_dns_zone}}"
-      record: "{{workshop_name}}.{{workshop_dns_zone}}"
-      type: CNAME
-      value: "lightbulb-{{workshop_name}}.s3-website-us-east-1.amazonaws.com"
-      
-  - name: PUT student webpage
-    s3_sync:
-      bucket: "{{workshop_name}}.{{workshop_dns_zone}}"
-      region: "{{workshop_region1}}"
-      file_root: ./
-      mode: push
-      mime_map:
-        .html: text/html
-      permission: public-read
-      include: "index.html"
+    - name: create s3 bucket
+      s3_bucket:
+        name: "{{workshop_name}}.{{workshop_dns_zone}}"
+    - name: enable web hosting
+      s3_website:
+       name: "{{workshop_name}}.{{workshop_dns_zone}}"
+       state: present
+       region: "{{workshop_region1}}"
+      register: s3_site
+    - name: DNS for student webpage
+      route53:
+        state: present
+        zone: "{{workshop_dns_zone}}"
+        record: "{{workshop_name}}.{{workshop_dns_zone}}"
+        type: CNAME
+        value: "lightbulb-{{workshop_name}}.s3-website-us-east-1.amazonaws.com"
+        
+    - name: PUT student webpage
+      s3_sync:
+        bucket: "{{workshop_name}}.{{workshop_dns_zone}}"
+        region: "{{workshop_region1}}"
+        file_root: ./
+        mode: push
+        mime_map:
+          .html: text/html
+        permission: public-read
+        include: "index.html"
