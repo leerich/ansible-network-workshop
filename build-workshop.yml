@@ -102,7 +102,7 @@
       s3_sync:
         bucket: "{{workshop_name}}.{{workshop_dns_zone}}"
         region: "{{workshop_region1}}"
-        file_root: ./
+        file_root: files/
         mode: push
         mime_map:
           .html: text/html
